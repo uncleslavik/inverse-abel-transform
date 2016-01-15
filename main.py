@@ -56,7 +56,7 @@ class Application:
 
         plt.show()
 
-app=Application('misha_He_2015_11_16/test/', 130, 255, 51)
+app=Application('test-data/', 130, 255, 51)
 app.loadSpecterFromFiles()
 #app.showSpecterPlot()
 app.showPlots()
