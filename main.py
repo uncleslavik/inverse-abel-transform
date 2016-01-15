@@ -57,7 +57,14 @@ class Application:
 
         plt.show()
 
-app=Application('test-data/', 130, 255, 51)
+app=Application('test-data/', 130, 255, 11)
 app.loadSpecterFromFiles()
-#app.showSpecterPlot()
+app.showSpecterPlot()
 app.showPlots()
+
+
+
+print(app.specter[0].dataSplit[255][:,1])
+
+plt.plot(Abel.transform(app.specter[0].dataSplit[255][:,1]), 'r-')
+plt.show()
