@@ -7,6 +7,7 @@
 # Date created: 01/12/2016
 # Date last modified: 01/15/2016
 # Python Version: 3.4
+# Require modules: numpy, matplotlib, scipy, six, dateutil, pyparsing
 
 # TODO:  batch specter processing, define spectral line parameters, temperature calculation, UI, documentation
 
