@@ -12,6 +12,7 @@
 # TODO:  batch specter processing, define spectral line parameters, temperature calculation, UI, documentation
 
 import glob
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -22,6 +23,7 @@ class Application:
 
     def __init__(self, dirPath, specterCenter, columnNumber, windowLength):
         self.specter=[]
+        self.abelData=[]
         self.dirPath=dirPath
         self.specterCenter=specterCenter
         self.columnNumber=columnNumber
@@ -40,7 +42,6 @@ class Application:
         plt.show()
 
     def showPlots(self):
-
         plt.subplot(3, 1, 1)
         plt.title("Signal & smoothed signal", size=13)
         plt.plot(app.specter[0].data[self.columnNumber,:],'k.')
@@ -57,14 +58,22 @@ class Application:
 
         plt.show()
 
+    #compute inverse abel transform
+    def computeAbelTransform(self, specterNum):
+        abelData=[]
+        for column in self.specter[specterNum].dataCombinedHalf:
+            abelData.append(Abel.transform(column))
+        self.abelData=np.array(abelData)
+
+    #save data to file
+    def saveDataToFile(self, data, fileName):
+        np.savetxt(fileName,data, fmt='%10.5f')
+
+
 app=Application('test-data/', 130, 255, 11)
 app.loadSpecterFromFiles()
-app.showSpecterPlot()
+app.computeAbelTransform(0)
+app.saveDataToFile(app.abelData, 'export/abel_'+time.strftime("%Y%m%d_%H%M%S")+'.txt')
+#app.showSpecterPlot()
 app.showPlots()
 
-
-
-print(app.specter[0].dataSplit[255][:,1])
-
-plt.plot(Abel.transform(app.specter[0].dataSplit[255][:,1]), 'r-')
-plt.show()
