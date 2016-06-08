@@ -1,12 +1,18 @@
 import numpy as np
+import ntpath
 
 class Specter:
 
-    def __init__(self,data,specterCenter,windowLength=21):
+    def __init__(self,data,fileName,specterCenter,windowLength=21):
+        self.name=ntpath.basename(fileName)
         self.data=data[:,1:]                        # specter data
         self.wavelength=data[:,0]                   # wavelength
         self.windowLength=windowLength              # the dimension of the smoothing window; should be an odd integer
         self.specterCenter=specterCenter            # coordinate of specter center row
+        self.lines=[]
+
+
+
 
         colSmooth=[]
         colSplit=[]
